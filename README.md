@@ -1,2 +1,2 @@
-# bud-burst
+# budburst
 Budburst Project
