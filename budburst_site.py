@@ -18,6 +18,7 @@ def main(page: ft.Page):
     wy= "#FBC02D"
     vo = "#FF9800"
     gray="#E0E0E0"
+    dy = "#F9A825"
     appbar = ft.AppBar(actions=[
         ft.PopupMenuButton(
                 items=[
@@ -28,42 +29,110 @@ def main(page: ft.Page):
                     ft.PopupMenuItem(
                         text="Invasive Species Control"),
                     ft.PopupMenuItem(
-                        text="About Us") 
+                        text="About Us")
                         ]
                         )],
-    title=ft.Text("EcoVision",size=56, weight=ft.FontWeight.BOLD,
+    title=ft.Text("EcoConnect",size=56, weight=ft.FontWeight.BOLD,
                   text_align="start", color = sw, font_family="Roboto",),
     center_title=False,
     toolbar_height=80,
        bgcolor=deepgreen,
          )
-    body = ft.Container(
-                    content=ft. Column([ft.Text("EcoVision",size=48,color=sw,
-                    weight=ft.FontWeight.BOLD,font_family="Roboto"),
-                    ft.Row(),
-                   ft.Text("Predicting plant development and Pest Invasions for Smarter Forest and Land Management.",
-                   size=18,color=gray,italic=True,font_family="Roboto"),
-                   ft.Text(""),
-                   ft.Text("""
+    
+    # Hero section background image with overlay
+    hero_section = ft.Stack(
+        [
+            # Background image
+            ft.Container(content = ft.Image(
+                src="/english_oak.jpg",  # Replace with your image URL or local path
+                fit=ft.ImageFit.COVER,
+                width=1000,  # Adjust based on your layout
+                height=550,  # Adjust based on your layout
+            ),border_radius=20,width=1000,
+            height=550),
+            ft.Container(bgcolor=ft.colors.BLACK54,
+            border_radius=20,  # Semi-transparent black
+            width=1000,
+            height=550),
+
+            # Overlay with text
+            ft.Container(
+                content=ft.Column(
+                    [
+                        ft.Text(
+                            "EcoConnect",
+                            font_family="Roboto",
+                            size=48,
+                            weight=ft.FontWeight.BOLD,
+                            color="white",
+                        ),
+                        ft.Text(
+                            "Predicting plant development and Pest Invasions for Smarter Forest and Land Management.",
+                            size=20,
+                            italic=True,
+                            font_family="Roboto",
+                            color=wy,
+                            text_align=ft.TextAlign.CENTER,
+                        ),
+                          ft.Text(""),
+                                  ft.Text("""
                 Our platform uses real-time climate information and historical data 
                 to forecast critical plant development stages and pest invasion timings. 
                 By understanding how climate conditions influence tree growth and pest cycles, 
                 we provide forest managers, farmers, and environmentalists with essential insights 
                 to optimize land management, protect ecosystems, and plan effectively for climate-driven changes.
-                """,size=16,font_family="Roboto",color=sw,style= [ft.TextStyle(word_spacing=5)]),
-                   ft.ElevatedButton(content=
-                   ft.Text("Start Predicting Now",color=deepgreen,size=20,
-                   weight=ft.FontWeight.BOLD),bgcolor=vo
-                   )
-                   ],horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-                    margin=10,
-                    padding=10,
-                    alignment=ft.alignment.center,
-                    bgcolor=deepgreen,
-                    width=1000,
-                    height=500,
-                    border_radius=10,
-                )
+                """, size=18, font_family="Roboto", color=gray, style=[ft.TextStyle(word_spacing=5), ft.TextStyle(height=1.5)]),
+                        ft.Text(""),
+                        ft.Text(""),
+                        ft.Container(
+                            content=ft.ElevatedButton(
+                                    content=ft.Container(
+                                        content=ft.Column([
+                                        ft.Text("Start Predicting Now", color=deepgreen, size=20, weight=ft.FontWeight.BOLD)
+                        ])
+                    ),
+                    style=ft.ButtonStyle(shape=ft.StadiumBorder(), bgcolor=vo, padding=ft.padding.all(25)),
+                    on_click=lambda _: print("Button clicked!"),
+                ),
+                padding=ft.padding.only(top=20),
+            ),
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                ),
+                alignment=ft.alignment.center,
+                expand=True,  # Allows content to take up the full space
+                padding=ft.padding.all(20),
+                border_radius=20
+            ),
+        ],
+        width=1000, 
+        height=550,  
+    )
+
+    bottom_app_bar=ft.BottomAppBar(
+            bgcolor=deepgreen,
+            shape=ft.NotchShape.CIRCULAR,
+            content=ft.Row(
+                controls=[
+                    ft.IconButton(icon=ft.icons.MENU, icon_color=ft.colors.WHITE),
+                    ft.Container(expand=True),
+                    ft.IconButton(icon=ft.icons.SEARCH, icon_color=ft.colors.WHITE),
+                    ft.IconButton(icon=ft.icons.FAVORITE, icon_color=ft.colors.WHITE),
+                ]
+            )
+        )
+
+    page.add(appbar,
+        ft.Container(
+            content=hero_section,
+            alignment=ft.alignment.center,
+            padding=ft.padding.all(20),
+            border_radius=20
+        ),
+        #bottom_app_bar
+    )
+
 
 #     #Input Section with Questions
 
@@ -236,8 +305,5 @@ def main(page: ft.Page):
 #                     width=510,
 #                     height=750,
 #                     border_radius=10)
-    
-                
-    page.add(appbar,body)
 
 ft.app(target=main)#, port=8080,view=ft.WEB_BROWSER)
